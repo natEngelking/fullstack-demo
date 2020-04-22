@@ -8,8 +8,8 @@ db.on('error', () => {
   ;
 
 let bugSchema = new mongoose.Schema({
-  bugNumber: Number,
-  description: String,
+  bugName: String,
+  bugDescription: String,
   reportedBy: String,
   creationDate: String,
   assignedTo: String,
@@ -19,8 +19,8 @@ let bugSchema = new mongoose.Schema({
 let Bug = mongoose.model('Bug', bugSchema);
 
 let buggared = new Bug ({
-  bugNumber: 10,
-  description: 'awol',
+  bugName: 'death to computers' ,
+  bugDescription: 'awol',
   reportedBy: 'me',
   creationDate: 'today',
   assignedTo: 'someone else',
