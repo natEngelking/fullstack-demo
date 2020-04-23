@@ -11,7 +11,7 @@ let bugSchema = new mongoose.Schema({
   bugName: String,
   bugDescription: String,
   reportedBy: String,
-  creationDate: String,
+  createdDate: String,
   assignedTo: String,
   threatLevel: String
 })
@@ -19,10 +19,10 @@ let bugSchema = new mongoose.Schema({
 let Bug = mongoose.model('Bug', bugSchema);
 
 let buggared = new Bug ({
-  bugName: 'death to computers' ,
+  bugName: 'death to computers',
   bugDescription: 'awol',
   reportedBy: 'me',
-  creationDate: 'today',
+  createdDate: 'today',
   assignedTo: 'someone else',
   threatLevel: 'probably pretty bad'
 })

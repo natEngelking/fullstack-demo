@@ -19,35 +19,18 @@ class App extends React.Component {
   }
 
 
-        // componentDidMount() {
-        //   let something = this.callServer()
-        //   .then(console.log(something))
-        //   .catch(err => console.log(err));
-        // }
-        //     callServer = async () => {
-        //       try {
-        //         let res = await fetch("https://localhost:3000", );
-        //         let jsonRes = await res.json();
-        //       } catch (err) {
-        //         console.log(err);
-        //       }
-        //     }
-
   componentDidMount() {
-  fetch('https://localhost:3000/api/bug')
+  fetch('http://localhost:3000/api/bug')
     .then(res => res.json())
-    .then((data) => {console.log(data)})
-    // .then(
-    //   (result) => {this.setState}
-    // )
-    // .catch(err) => {
-    //   console.log(err);
-    // }
-  }
+    .then((data) => {
+      this.setState({bugs: data});
+    },
+    (error) => {
+      console.log(error)
+    });
 
-  // async callServer () {
-  //   console.log('hi')
-  // }
+  }
+  
 
   filterHandler(filter) {
     this.setState({ filter });
@@ -59,17 +42,15 @@ class App extends React.Component {
         <Nav
           filterHandler={this.filterHandler}
         />
-        {this.state.bugs.map((bug) => (
           <BugTile
-            bugName={bug.bugName}
-            bugDescription={bug.bugDescription}
-            reportedBy={bug.reportedBy}
-            createdDate={bug.createdDate}
-            assignedTo={bug.assignedTo}
-            threatLevel={bug.threatLevel}
-            key={bug.bugName}
+            bugName={this.state.bugs.bugName}
+            bugDescription={this.state.bugs.bugDescription}
+            reportedBy={this.state.bugs.reportedBy}
+            createdDate={this.state.bugs.createdDate}
+            assignedTo={this.state.bugs.assignedTo}
+            threatLevel={this.state.bugs.threatLevel}
+            key={this.state.bugs.bugName}
           />
-        ))}
       </table>
     );
   }
