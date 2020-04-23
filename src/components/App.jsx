@@ -30,7 +30,8 @@ class App extends React.Component {
     });
 
   }
-  
+
+  //new handle function that fetches the info form teh data base after posting it and then renders it on the screen via bugTile 
 
   filterHandler(filter) {
     this.setState({ filter });

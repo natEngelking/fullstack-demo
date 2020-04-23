@@ -34,7 +34,6 @@ app.post('/api/bug', async (req, res) =>{
   } catch (err) {
     res.status(404).send(err);
   }
-
 })
 // //update a bug
 // app.put('/', (req, res) =>{
