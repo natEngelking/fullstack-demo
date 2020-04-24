@@ -14,7 +14,15 @@ class App extends React.Component {
     this.state = {
       filter: 'None',
       bugs: exampleData,
+      bugReport: {
+        bugName: '',
+        bugDescription: '',
+        reportedBy: '',
+        createdDate: '',
+        assignedTo: ''
+      }
     };
+
     this.filterHandler = this.filterHandler.bind(this);
   }
 
@@ -28,14 +36,104 @@ class App extends React.Component {
     (error) => {
       console.log(error)
     });
-
   }
 
-  //new handle function that fetches the info form teh data base after posting it and then renders it on the screen via bugTile 
+
+  handleNewInput(e) {
+    e.preventDefault();
+    const target = e.target;
+    const name = target.name
+
+  if (name === 'bugName') {
+    this.setState(prevState => ({
+      bugReport: {
+        ...prevState.bugReport,
+        bugName: target.value
+      }
+    }));
+  };
+  if (name === 'bugDescription') {
+    this.setState(prevState => ({
+      bugReport: {
+        ...prevState.bugReport,
+        bugDescription: target.value
+      }
+    }));
+  };
+  if (name === 'reportedBy') {
+    this.setState(prevState => ({
+      bugReport: {
+        ...prevState.bugReport,
+        reportedBy: target.value
+      }
+    }));
+  };
+  if (name === 'createdDate') {
+    this.setState(prevState => ({
+      bugReport: {
+        ...prevState.bugReport,
+        createDate: target.value
+      }
+    }));
+  };
+  if (name === 'assignedTo') {
+    this.setState(prevState => ({
+      bugReport: {
+        ...prevState.bugReport,
+        assignedTo: target.value
+      }
+    }));
+  };
+  console.log(this.state.bugReport.bugDescription);
+  };
+
+  // clearForm(e) {
+  //   e.preventDefault();
+  //   const target = e.target;
+  //   const name = target.name;
+
+  //     if (name === 'bugName') {
+  //       this.setState({bugName: ''})
+  //       }
+  //     if (name === 'bugDescription') {
+  //       this.setState({bugDescription: ''})
+  //     }
+  //     if (name === 'reportedBy') {
+  //       this.setState({reportedBy: ''})
+  //     }
+  //     if (name === 'createdDate') {
+  //       this.setState({createdDate: ''})
+  //     }
+  //     if (name === 'assignedTo') {
+  //       this.setState({assignedTo: ''})
+  //     }
+  //   }
+
+  handleInputSubmit(e, data = this.state.bugReport) {
+    console.log(this.state.bugReport);
+    e.preventDefault();
+    console.log(data);
+    fetch('http://localhost:3000/api/bug', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data)
+    })
+    .then((response) => response.json())
+    .then((data) => {
+      console.log('Success:', data)
+    })
+    .catch((error) => {
+      console.error('Error:', error);
+    });
+  }
 
   filterHandler(filter) {
     this.setState({ filter });
   }
+
+
 
   render() {
     return (
@@ -51,6 +149,9 @@ class App extends React.Component {
             assignedTo={this.state.bugs.assignedTo}
             threatLevel={this.state.bugs.threatLevel}
             key={this.state.bugs.bugName}
+            handleNewInput={this.handleNewInput.bind(this)}
+            handleInputSubmit={this.handleInputSubmit.bind(this)}
+            // clearForm={this.clearForm.bind(this)}
           />
       </table>
     );
